@@ -1,4 +1,5 @@
 import React from 'react';
+import firebaseUtil from '../utils/firebaseUtil'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link, useHistory } from 'react-router-dom';
 import cw from "../assets/cw.jpeg";
+import { useAuth } from '../context/AuthContextProvider';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -35,12 +37,18 @@ const useStyles = makeStyles((theme) => ({
     logo: {
       width: 40,
   },
+    linkStyle: {
+      textDecoration: "none",
+      color: "black",
+    },
 }));
 
 export default function Navbar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+  const { currentUser } = useAuth();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -89,8 +97,12 @@ export default function Navbar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+              <Link to="/login" className={classes.linkStyle}>
+                <MenuItem onClick={handleClose}>Login</MenuItem>
+              </Link>
+              <Link to="/register" className={classes.linkStyle}>
+                <MenuItem onClick={handleClose}>Register</MenuItem>
+              </Link>
               </Menu>
             </div>
         </Toolbar>
