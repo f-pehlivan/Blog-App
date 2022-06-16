@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import cw from "../assets/cw.jpeg";
 import { useAuth } from '../context/AuthContextProvider';
 
@@ -47,8 +47,7 @@ export default function Navbar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -57,6 +56,11 @@ export default function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    setAnchorEl(null);
+    logout();
+  }
 
   return (
     <div className={classes.grow}>
@@ -82,7 +86,7 @@ export default function Navbar() {
               >
                 <AccountCircle style={{ fontSize: '40px' }}/>
               </IconButton>
-              <Menu
+                <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -97,11 +101,14 @@ export default function Navbar() {
                 open={open}
                 onClose={handleClose}
               >
-              <Link to="/login" className={classes.linkStyle}>
-                <MenuItem onClick={handleClose}>Login</MenuItem>
+              <Link to="/profile" className={classes.linkStyle}>
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
               </Link>
-              <Link to="/register" className={classes.linkStyle}>
-                <MenuItem onClick={handleClose}>Register</MenuItem>
+              <Link to="/new-blog" className={classes.linkStyle}>
+                <MenuItem onClick={handleClose}>New Blog</MenuItem>
+              </Link>
+              <Link to="/dashboard" className={classes.linkStyle}>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Link>
               </Menu>
             </div>
