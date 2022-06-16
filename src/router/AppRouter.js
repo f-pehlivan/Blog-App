@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
@@ -15,9 +15,9 @@ const AppRouter = () => {
     <Router>
         <Navbar/>
         <Switch>
-            <Router path="/login" component={Login}/>
-            <Router path="/register" component={Register}/>
-            <Router path="/" exact component={Dashboard}/>
+            <Route path="/login" component={Login}/>
+            <Route path="/register" component={Register}/>
+            <Route path="/" exact  component={Dashboard}/>
 
             <PrivateRouter path="/profile" component={Profile}/>
             <PrivateRouter path="/update-blog" component={UpdateBlog}/>
